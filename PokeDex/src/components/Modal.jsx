@@ -1,0 +1,6 @@
+function Model(){
+  return(
+    <>
+    </>
+  );
+}
