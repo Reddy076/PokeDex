@@ -64,6 +64,7 @@ export default function PokeCard({ selectedPokemon }) {
           })
         }
       </div>
+      <img className="default-img" src={'/pokemon/'+getFullPokedexNumber(selectedPokemon)+'.png'} alt={`${name}-large-image`} />
     </div>
   );
 }
