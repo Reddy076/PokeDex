@@ -1,4 +1,4 @@
-function Model(){
+export default function Model(){
   return(
     <>
     </>

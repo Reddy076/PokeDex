@@ -1,42 +1,69 @@
-import { useEffect , useState } from "react";
-export function PokeCard({selectedPokemon}){
-  const [data, setData]=useState(null);
-  const [loading, setLoading]=useState(false);
+import { useEffect, useState } from "react";
+import { getPokedexNumber, getFullPokedexNumber } from "../utils";
+import  TypeCard  from "./TypeCard";
+
+
+export default function PokeCard({ selectedPokemon }) {
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
   //const [error, setError]=useState(null);
-  useEffect(()=>{
-    if(loading || !localStorage){ return }
+  const { name, height, abilities, stats = [], types = [], moves = [], sprites } = data || {}
+  useEffect(() => {
+    if (loading || !localStorage) { return }
     //check cache
-    let cache={}
-    if(localStorage.getItem("pokedex")){
-      cache=JSON.parse(localStorage.getItem("pokedex"));
+    let cache = {}
+    if (localStorage.getItem("pokedex")) {
+      cache = JSON.parse(localStorage.getItem("pokedex"));
     }
-    if(selectedPokemon in cache){
+    if (selectedPokemon in cache) {
       setData(cache[selectedPokemon]);
       return;
     }
-    async function fetchPokemonData(){ 
-      try{
-        const baseUrl="https://pokeapi.co/api/v2/"
-        const suffix='pokemon/'+selectedPokemon
-        const finaUrl=baseUrl+suffix
+    async function fetchPokemonData() {
+      try {
+        const baseUrl = "https://pokeapi.co/api/v2/"
+        const suffix = 'pokemon/' + getPokedexNumber(selectedPokemon);
+        const finaUrl = baseUrl + suffix
         const response = await fetch(finaUrl);
-        const pokemonData=await response.json();
+        const pokemonData = await response.json();
         setData(pokemonData);
-        cache[selectedPokemon]=pokemonData
+        console.log(pokemonData)
+        cache[selectedPokemon] = pokemonData
         localStorage.setItem("pokedex", JSON.stringify(cache));
       }
-      catch(error){
+      catch (error) {
         console.log(error.message);
       }
-      finally{
+      finally {
         setLoading(false);
       }
     }
     fetchPokemonData();
-  },[selectedPokemon]);
-  return(
+  }, [selectedPokemon]);
+  if (loading || !data) {
     <div>
-      
+      <h4>loading...</h4>
+    </div>
+  }
+
+  return (
+    <div className="poke-card">
+      <div>
+        <h4>#{
+          getFullPokedexNumber(selectedPokemon)
+        } </h4>
+        <h2>{name}</h2>
+      </div>
+      <div className="type-container">
+        {
+          types.map((typeObj, typeIndex) => {
+            return (
+              <TypeCard key={typeIndex} type={typeObj.type?.name} />
+            )
+          })
+        }
+      </div>
     </div>
   );
 }

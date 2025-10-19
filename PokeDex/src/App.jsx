@@ -1,6 +1,6 @@
-import { SideNav } from "./components/SideNav"
-import { PokeCard } from "./components/PokeCard"
-import { Header } from "./components/Header"
+import  SideNav  from "./components/SideNav"
+import  PokeCard  from "./components/PokeCard"
+import  Header  from "./components/Header"
 
 import { useState } from "react"
 
