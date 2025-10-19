@@ -274,3 +274,29 @@ h3 {
     display: none;
   }
 }
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-primary);
+  border-radius: var(--border-radius-small);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: var(--border-radius-small);
+  border: 2px solid var(--background-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-highlight);
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-secondary) var(--background-primary);
+}
