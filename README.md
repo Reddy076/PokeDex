@@ -32,6 +32,11 @@ A responsive web application that allows users to browse and search through the 
 - Node.js (version 14 or higher)
 - npm or yarn package manager
 
+### View Live Demo
+
+Check out the live deployment of the application:
+[https://poke-dex-5aoz.vercel.app](https://poke-dex-5aoz.vercel.app)
+
 ### Installation
 
 1. Clone the repository:
