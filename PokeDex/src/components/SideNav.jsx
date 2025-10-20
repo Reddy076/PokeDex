@@ -1,6 +1,6 @@
 import { first151Pokemon, getFullPokedexNumber } from "../utils";
 import { useState } from "react";
-export default function SideNav({ selectedPokemon , setSelectedPokemon}) {
+export default function SideNav({ selectedPokemon , setSelectedPokemon , handleToggleMenu, showSideMenu }) {
   const [searchValue, setSearchValue]=useState('');
 
   const filterdPokemon=first151Pokemon.filter((ele, eleIndex)=>{
@@ -12,9 +12,12 @@ export default function SideNav({ selectedPokemon , setSelectedPokemon}) {
     return false;
   })
   return (
-    <nav>
+    <nav className={showSideMenu ? 'open' : ''}>
         
-          <div className={'header'}>
+          <div className={'header' + (showSideMenu ? ' open' : '')}>
+            <button onClick={handleToggleMenu} className="open-nav-button">
+              <i className="fa-solid fa-arrow-left-long"></i>
+            </button>
             <h1 className="text-gradient"> Pokédex </h1>
           </div>
           <input placeholder="E.g:001 or Bulba...." value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
@@ -23,7 +26,7 @@ export default function SideNav({ selectedPokemon , setSelectedPokemon}) {
             const originalIndex = first151Pokemon.indexOf(pokemon);
             return(
               <button onClick={
-                () => setSelectedPokemon(originalIndex)
+                () => {setSelectedPokemon(originalIndex); handleToggleMenu();}
               } 
               key={originalIndex} className={'nav-card '+
                 (originalIndex === selectedPokemon ? 'nav-card-selected':' ')
