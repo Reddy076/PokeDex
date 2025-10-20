@@ -26,5 +26,5 @@ export default defineConfig({
     strictPort: false,
     host: true,
   },
-  base: './',
+  base: '/',
 })
