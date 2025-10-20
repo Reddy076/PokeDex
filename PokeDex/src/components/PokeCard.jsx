@@ -71,7 +71,6 @@ export default function PokeCard({ selectedPokemon }) {
     if (selectedPokemon in cache) {
       setData(cache[selectedPokemon]);
       return;
-      console.log('Found pokemon in cache')
     }
     async function fetchPokemonData() {
       try {
@@ -94,10 +93,13 @@ export default function PokeCard({ selectedPokemon }) {
     }
     fetchPokemonData();
   }, [selectedPokemon]);
+  
   if (loading || !data) {
-    <div>
-      <h4>loading...</h4>
-    </div>
+    return (
+      <div className="poke-card">
+        <h4>Loading...</h4>
+      </div>
+    );
   }
 
   return (
@@ -159,7 +161,7 @@ export default function PokeCard({ selectedPokemon }) {
           {
             moves.map((moveObj, moveIndex)=>{
               return(
-                <button className=" pokemon-move " key={moveIndex} onClick={()=>{
+                <button className="pokemon-move" key={moveIndex} onClick={()=>{
                   fetchMoveData(moveObj?.move?.name, moveObj?.move?.url)
                 }}>
                   <p>{moveObj?.move?.name.replaceAll('-',' ')}</p>

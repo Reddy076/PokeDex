@@ -20,13 +20,17 @@ export default function SideNav({ selectedPokemon , setSelectedPokemon , handleT
             </button>
             <h1 className="text-gradient"> Pokédex </h1>
           </div>
-          <input placeholder="E.g:001 or Bulba...." value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
+          <input 
+            placeholder="Search by name or number..." 
+            value={searchValue} 
+            onChange={(event) => setSearchValue(event.target.value)}
+          />
           {
           filterdPokemon.map((pokemon,pokemonIndex)=>{
             const originalIndex = first151Pokemon.indexOf(pokemon);
             return(
               <button onClick={
-                () => {setSelectedPokemon(originalIndex); handleToggleMenu();}
+                () => {setSelectedPokemon(originalIndex); if (window.innerWidth < 640) handleToggleMenu();}
               } 
               key={originalIndex} className={'nav-card '+
                 (originalIndex === selectedPokemon ? 'nav-card-selected':' ')
